@@ -42,5 +42,5 @@ const SITE_IMAGES = {
   // About page
   principal: "",            
   videoPoster: "bg2.jpg",         
-  videoFile: "abt.mp4"            
+  videoFile: ""            
 };
