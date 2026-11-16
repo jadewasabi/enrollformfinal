@@ -1,23 +1,14 @@
-/* =====================================================
-   IMAGES.JS  -  the ONLY file you need to edit for photos
-   -----------------------------------------------------
-   1. Put your photos in the "images" folder (or anywhere).
-   2. Type the file name between the quotes below.
-      Path is relative to index.html, e.g. "images/stem.jpg"
-   3. Leave "" (empty) to keep the default colored design.
-   Save, then refresh the page (Ctrl+Shift+R).
-   Tip: file names are case-sensitive: bg1.jpg is not BG1.JPG
-   ===================================================== */
+
 const SITE_IMAGES = {
 
-  // Big banner at the top of the home page
+  // big banner
   hero: "bg2.jpg",
-  heroDarkness: 0.5,        // 0 = no dark layer, 1 = very dark (keeps white text readable)
+  heroDarkness: 0.5,        
 
-  // Small picture in the "Now accepting enrollees" tag
+  
   tag: "",
 
-  // Photo for each strand card on the home page
+  // pt strands
   strands: {
     STEM:  "",
     ABM:   "",
@@ -26,8 +17,7 @@ const SITE_IMAGES = {
     TVL:   ""
   },
 
-  // "Life on Campus" infinite carousel.
-  // Add or remove lines freely. Each line = one photo.
+  // life on campus pt 
   campus: [
     { src: "Intrams.jpg", caption: "Intramurals" },
     { src: "tourn.jpg", caption: "Tournaments" },
