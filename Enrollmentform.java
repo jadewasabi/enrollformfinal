@@ -540,6 +540,11 @@ public class Enrollmentform {
             cells.add(stamp);
             cells.addAll(row.values());
             appendSheet(TAB_ENROLL, cells);
+            String gt = gradeTab(row.get("grade"));
+            if (gt != null) {
+                try { appendSheet(gt, cells); }
+                catch (IOException e) { System.out.println("WARNING: saved to '" + TAB_ENROLL + "' but not to tab '" + gt + "': " + e.getMessage()); }
+            }
             return;
         }
         StringBuilder sb = new StringBuilder();
@@ -991,6 +996,14 @@ public class Enrollmentform {
     static final boolean USE_SHEETS = !SHEET_ID.isEmpty() && (!SA_JSON.isEmpty() || !SA_FILE.isEmpty());
     static final String SHEETS_BASE = env("GOOGLE_SHEETS_BASE", "https://sheets.googleapis.com");
     static final String TAB_ENROLL = "Enrollments", TAB_USERS = "Users";
+    // one extra tab per grade level (Grade 11 and 12 = SHS). "Enrollments" stays as the combined master list.
+    static final String[] GRADE_TABS = {"Grade 7", "Grade 8", "Grade 9", "Grade 10", "Grade 11 (SHS)", "Grade 12 (SHS)"};
+    static String gradeTab(String grade) {
+        String g = grade == null ? "" : grade.trim().toUpperCase();
+        for (String t : GRADE_TABS)
+            if (t.replace(" (SHS)", "").toUpperCase().equals(g)) return t;
+        return null;
+    }
     static final HttpClient HTTP = HttpClient.newHttpClient();
     static String saEmail, saTokenUri, accessTok;
     static PrivateKey saKey;
@@ -1010,6 +1023,7 @@ public class Enrollmentform {
         eh.add("timestamp");
         eh.addAll(KEYS);
         ensureHeader(TAB_ENROLL, eh);
+        for (String t : GRADE_TABS) { ensureTab(t); ensureHeader(t, eh); }
         ensureHeader(TAB_USERS, List.of("email", "salt", "hash", "name", "created"));
         System.out.println("Storage: Google Sheet " + SHEET_ID + " (signed in as " + saEmail + ")");
     }
